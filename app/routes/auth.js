@@ -21,6 +21,14 @@ module.exports = function(app, passport) {
             failureRedirect: '/signin'
         }));
 
+    app.get('/api/auth/linkedin/callback',
+      passport.authenticate('oauth2', { failureRedirect: '/login' }),
+      function(req, res) {
+        console.log("REQUEST", req)
+        // Successful authentication, redirect home.
+        res.redirect('/dashboard');
+    });
+
 }
 
 function isLoggedIn(req, res, next) {
